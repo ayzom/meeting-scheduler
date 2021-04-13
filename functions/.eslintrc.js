@@ -8,11 +8,9 @@ module.exports = {
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript",
     "google",
-    "plugin:@typescript-eslint/recommended",
   ],
-  parser: "@typescript-eslint/parser",
+  parser: "esprima",
   parserOptions: {
     project: ["tsconfig.json", "tsconfig.dev.json"],
     sourceType: "module",
@@ -21,7 +19,6 @@ module.exports = {
     "/lib/**/*", // Ignore built files.
   ],
   plugins: [
-    "@typescript-eslint",
     "import",
   ],
   rules: {

@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       option:"",
-      host: "http://localhost:5001/meetsy-83280/us-central1/helloWorld",
+      host: "https://us-central1-meetsy-83280.cloudfunctions.net/helloWorld",
       date: new Date().toISOString().slice(0,10), // yyyy-mm-dd
       events: [],
       timeZone: moment.tz.guess(),
@@ -128,19 +128,22 @@ export default {
       const self = this;
       return axios(config)
       .then(function (response) {
-        const {events} = response.data;
-        let arr = [];
-        events.forEach(function (item) {
-          arr.push({
-            start:item.startTime.replace(/z|t/gi,' ').trim().slice(0,16),
-            end: item.endTime.replace(/z|t/gi,' ').trim().slice(0,16),
-            title: "Booked"
-          });
-        })
-        self.events = arr;
+        if(response.data && response.data.events) {
+          const {events} = response.data;
+          let arr = [];
+          events.forEach(function (item) {
+            arr.push({
+              start:item.startTime.replace(/z|t/gi,' ').trim().slice(0,16),
+              end: item.endTime.replace(/z|t/gi,' ').trim().slice(0,16),
+              title: "Booked"
+            });
+          })
+          self.events = arr;
+        }
       })
       .catch(function (error) {
         console.log(error);
+        self.events = [];
       });
     }
   }
