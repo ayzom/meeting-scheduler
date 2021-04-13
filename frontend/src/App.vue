@@ -107,7 +107,7 @@ export default {
         };
         return axios(config)
         .then(function (response) {
-          this.addMessage = "";
+          this.addMessage = response.data.message;
         })
         .catch(function (error) {
           this.addMessage = "Failed to Add";
@@ -140,6 +140,7 @@ export default {
           })
           self.events = arr;
         }
+        this.addMessage = response.data.message;
       })
       .catch(function (error) {
         console.log(error);
